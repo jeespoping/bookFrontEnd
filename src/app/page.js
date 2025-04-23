@@ -5,7 +5,9 @@ export default function Home() {
     <div className="container">
       <h1>Books App</h1>
 
-      <Link href="/libros">Book List</Link>
+      <Link data-cy="link-to-books" href="/libros">
+        Book List
+      </Link>
     </div>
   );
 }

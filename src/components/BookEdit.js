@@ -4,8 +4,8 @@ import Link from "next/link";
 import { useRouter } from "next/navigation";
 import { useState } from "react";
 
-export default function BookCreate() {
-  const [bookTitle, setbookTitle] = useState("");
+export default function BookEdit({ bid, title }) {
+  const [bookTitle, setbookTitle] = useState(title);
   const [errors, setErrors] = useState("");
   const [loading, setLoading] = useState(false);
 
@@ -16,7 +16,7 @@ export default function BookCreate() {
     setLoading(true);
 
     const res = await fetch(
-      `${process.env.NEXT_PUBLIC_BACKEND_URL}/api/books`,
+      `${process.env.NEXT_PUBLIC_BACKEND_URL}/api/books/${bid}`,
       {
         method: "POST",
         headers: {
@@ -25,6 +25,7 @@ export default function BookCreate() {
         },
         body: JSON.stringify({
           title: bookTitle,
+          _method: "PATCH",
         }),
       }
     );
@@ -42,7 +43,7 @@ export default function BookCreate() {
 
   return (
     <div>
-      <h1>Crear</h1>
+      <h1>Editar libro</h1>
       <form onSubmit={handleSubmit}>
         <input
           onChange={(e) => setbookTitle(e.target.value)}
